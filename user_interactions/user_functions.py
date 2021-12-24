@@ -1,4 +1,6 @@
 from model.student import Student
+from datetime import datetime,date 
+import math
 
 def createStudent():
     print("Creating a student .....")
@@ -48,5 +50,31 @@ def deleteStudentByID():
     
 
 
-def studentAge(student :Student):
-    pass
+def studentAge():
+    print("*"*20,'Calculate age of a student ',"*"*20)
+    print("Calculating age of student ")
+    id = input("Enter the ID of a student you want age ==>")
+    # check for the student having the id
+    students = Student.view_students()
+    student_id = None
+    # for s in students:
+    #     if s.s_id == id:
+    #         student_id = s
+    #         break
+    # print(s.s_id)
+    student_id = list(filter (lambda x:x.s_id == id , students))
+    
+    if student_id:
+        print(f"Correct student id is ----> {student_id[0]}")
+    else:
+        print(f" You have entered id {id}. This dosent exist")
+        return
+    # found the correct student now calculate the age of student
+    print(f"Age of student with id {student_id[0].s_id} -----> date of birth  ---> {student_id[0].s_d_o_b}") 
+    
+    date_object = datetime.strptime(student_id[0].s_d_o_b.replace("\n",""), '%d-%m-%Y').date()
+    # print(date_object)
+    date.today()
+    # print(date.today())
+    total_days = date.today() - date_object
+    print(f"Age of given Student is --->{math.trunc(total_days.days/365)} years")
